@@ -1,0 +1,9 @@
+.venv
+.env
+env
+__pycache__/
+*.pyc
+live_status_cache.json
+stream_cache.json
+images.jpg
+.gitignore
