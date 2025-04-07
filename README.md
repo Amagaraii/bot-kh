@@ -1,68 +1,101 @@
-Bonjour, bienvenue sur ce projet de bot pour un de mes streamer ! https://www.twitch.tv/shaoredfields
+# 💫 KH_Bot – Bot Discord avec Intégration Twitch
 
-c'est un bot (peut importe le nom du bot) qui lance des annonce de début de live automatiquement dans un salon discord que vous pouvez nommé comme vous le souhaitez du moment que vous le changer dans le code (quand le processus est lancé : bot.py) -> python bot.py 
+Un bot Discord développé en Python, qui :
+- Envoie une citation de Kingdom Hearts via `!khquote`
+- Souhaite la bienvenue aux nouveaux membres
+- Surveille les streamers Twitch et notifie quand ils passent en live
 
-pour commencé si vous cloner ce repo je serais ravis de le voir ce faire utiliser / amélioré bien entendu il ne s'agit que d'un début 
+---
 
-ÉTAPE 1 :
+## 🚀 Fonctionnalités
 
-cloner le repo ... une fois fait lancé le dossier dans lequel il est maintenant ! il y a un fichier texte qui sert a installer ce qu'il y est utilisé pour faire marcher le bot.
-on ouvre le terminal ! vous devez être au bon endroit du dossier c'est a dire a ça racine de la ou il a les fichiers -> pip install -r requirements.txt
+- 📜 Commande `!khquote` pour une citation aléatoire de KH
+- 👋 Message de bienvenue automatique dans `#général`
+- 🔴 Notification dans `#🔴-live` dès qu’un streamer est en live
+- 🛠️ Commandes admin : `!reloadcache`, `!checknow`, `!showcache`
 
-a partir de la il ne reste vraiment pas grand chose a faire selon votre IDE il vous faut une env (environnement virtuel) ATTENTION c'est ce qui prend le plus de poids dans le dossier -> python -m venv env -> env\Scripts\activate
+---
+
+## 🛠️ Prérequis
+
+- Python 3.10+ (idéalement)
+- Un **bot Discord** enregistré sur [Discord Developer Portal](https://discord.com/developers/applications)
+- Une application **Twitch** sur [Twitch Developer Portal](https://dev.twitch.tv/console)
+
+---
+
+## ⚙️ Installation
+
+### 1. Cloner le projet
+
+git clone https://github.com/ton-user/kh-bot.git
+cd kh-bot
+
+2. Créer un environnement virtuel
+
+python -m venv venv
+venv\Scripts\activate  # Windows
+# ou
+source venv/bin/activate  # macOS/Linux
+
+3. Installer les dépendances
+pip install -r requirements.txt
+
+4. Créer le fichier .env
+À la racine du projet, crée un fichier .env :
+
+DISCORD_TOKEN=ton_token_discord
+CLIENT_ID=ton_client_id_twitch
+CLIENT_SECRET=ton_client_secret_twitch
+REFRESH_TOKEN=ton_refresh_token_twitch
+ACCESS_TOKEN=token_temporaire_twitch
+STREAMERS=ShaoRedfields
+ADMIN_IDS=123456789012345678
+ℹ️ STREAMERS peut contenir plusieurs pseudos séparés par des virgules.
+ℹ️ ADMIN_IDS doit contenir les IDs Discord autorisés à utiliser les commandes admin.
 
 
-ÉTAPE 2 : 
 
-Crée votre bot sur https://dev.twitch.tv/console et https://discord.com/developers/applications 
+🧪 Lancer le bot
 
-pour discord : 
+python bot.py
+Tu verras quelque chose comme :
 
-Clique sur "New Application"
-Donne un nom à ton bot (ex : Bot_incroyable) puis clique sur Create
-
-🤖 2. Créer le bot dans l'application
-Dans la sidebar gauche, clique sur "Bot"
-
-Clique sur "Add Bot", puis Yes, do it!
-
-Tu peux ensuite :
-
-Changer son avatar
-Modifier son nom
-Activer l’option "MESSAGE CONTENT INTENT" si ton bot lit les messages (message_content = True dans ton code)
+KH_Boty#0351 est prêt à protéger les cœurs et à suivre les lives !
+🎮 Démarrage de la surveillance des streamers...
 
 
-Pour twitch : 
 
-1. Créer ton application Twitch
-Va sur : https://dev.twitch.tv/console
 
-Connecte-toi avec ton compte Twitch.
+📦 Arborescence
 
-Clique sur le bouton "Applications" dans la barre latérale.
-Clique sur "Register Your Application" (en haut à droite).
-Remplis les infos :
-Name : ce que tu veux (ex : Bot_de_fou).
-OAuth Redirect URLs : http://localhost
-Category : coche "Application intégrée"
-Clique sur "Create"
+kh-bot/
+├── bot.py
+├── twitch_integration.py
+├── twitch_token_manager.py
+├── stream_cache.json
+├── requirements.txt
+├── .env
+└── README.md
 
-📦 2. Récupérer les identifiants
-Après création, tu verras ton application dans la liste.
 
-Clique dessus, et tu auras :
-Client ID ✅
-Client Secret (tu dois cliquer sur "New Secret" si c’est la première fois) ✅
+💬 Commandes disponibles
+Commande	Description	Accès
+!khquote	Affiche une citation aléatoire de KH	Tout le monde
+!reloadcache	Réinitialise le cache des lives Twitch	Admin
+!checknow	Force une vérification immédiate des lives	Admin
+!showcache	Affiche le cache actuel	Admin
 
-ÉTAPE 3 : 
 
-Maintenant qu'on en est la on vas crée un fichier .env ou on vas pouvoir renseigner tous ce qu'on a besoin au bon fonctionnement du bot !
+🧠 Notes utiles
+Le fichier stream_cache.json empêche les notifications en double.
 
-on vas avoir besoin d'un token discord pour le bot : DISCORD_TOKEN=votre_token_discord (a écrire dans le .env) Clique sur "Reset Token" pour générer un nouveau token dans le portail discord ⚠️ Ne partage jamais ce token — c’est la clé d’accès à ton bot.
+Les tokens Twitch expirent, mais un système de rafraîchissement automatique est en place.
 
-Pour Twitch on vas avoir CLIENT_ID et CLIENT_SECRET pareil a mettre dans votre .env -> Après création, tu verras ton application dans la liste.
+Le bot s’attend à ce que tu aies un canal textuel nommé exactement 🔴-live dans ton serveur Discord.
 
-Clique dessus, et tu auras :
-Client ID ✅
-Client Secret (tu dois cliquer sur "New Secret" si c’est la première fois) ✅
+L’interface twitch_token_manager.py gère automatiquement les mises à jour du .env lors du refresh des tokens.
+
+👨‍💻 Auteur
+👋 Projet développé par Angel
+🎮 Kingdom Hearts dans le cœur, code dans les veines
