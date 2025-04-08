@@ -4,7 +4,8 @@ import os
 import asyncio
 import json
 from dotenv import load_dotenv
-from twitch_token_manager import refresh_access_token
+from twitch_token_manager import refresh_access_token, CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN
+
 
 
 # --- Chargement des variables d'environnement ---
@@ -45,7 +46,7 @@ async def check_stream_status(user_name):
         async with session.get(API_URL, headers=headers, params=params) as response:
             if response.status == 401:
                 print(f"⚠️ Token expiré. Rafraîchissement en cours...")
-                new_token = refresh_access_token("client_id","client_secret","refresh_token")
+                new_token = refresh_access_token(CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN)
                 if new_token:
                     TWITCH_CONFIG["access_token"] = new_token  # mise à jour en live
                     return await check_stream_status(user_name)  # retenter la requête
