@@ -43,7 +43,7 @@ async def on_ready():
     print(f"{bot.user} est prêt à protéger les cœurs et à suivre les lives !")
     
     # Démarre la tâche de notification Twitch
-    await start_twitch_task(bot)  # Appelle la fonction pour démarrer la vérification Twitch
+    await start_twitch_task(bot)
 
 # --- Lancer le bot avec le token sécurisé ---
 bot.run(os.getenv("DISCORD_TOKEN"))

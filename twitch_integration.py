@@ -15,7 +15,7 @@ load_dotenv()
 TWITCH_CONFIG = {
     "client_id": os.getenv("CLIENT_ID"),
     "access_token": os.getenv("ACCESS_TOKEN"),
-    "streamers": ["ShaoRedfields"],  # Ajoute d'autres noms ici
+    "streamers": [streamer.strip() for streamer in os.getenv("STREAMERS", "").split(",")],  
     "check_interval": 300,  # 5 minutes
     "status_cache_file": "live_status_cache.json"
 }
@@ -106,4 +106,4 @@ async def start_twitch_task(bot):
 
             await asyncio.sleep(TWITCH_CONFIG["check_interval"])
 
-    bot.loop.create_task(periodic_check())
+    asyncio.create_task(periodic_check())
